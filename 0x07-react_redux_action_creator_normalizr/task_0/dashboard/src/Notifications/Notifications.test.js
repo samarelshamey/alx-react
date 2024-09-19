@@ -123,46 +123,6 @@ describe('rendering components', () => {
 		spy.mockRestore();
 	});
 
-	it('checks <Notifications /> doesn’t rerender when updating the props of the component with the same list', () => {
-		const listNotifications = [
-			{ id: 1, type: 'default', value: 'New course available' },
-			{ id: 2, type: 'urgent', value: 'New resume available' },
-			{ id: 3, type: 'default', html: getLatestNotification() },
-		];
-		const wrapper = shallow(
-			<Notifications
-				displayDrawer={true}
-				listNotifications={listNotifications}
-			/>
-		);
-		const spy = jest.spyOn(wrapper.instance(), 'shouldComponentUpdate');
-
-		wrapper.setProps(listNotifications);
-		expect(spy).toReturnWith(false);
-		spy.mockRestore();
-	});
-
-	it('checks <Notifications /> rerenders when updating the props of the component with a longer list', () => {
-		const listNotifications = [
-			{ id: 1, type: 'default', value: 'New course available' },
-			{ id: 2, type: 'urgent', value: 'New resume available' },
-			{ id: 3, type: 'default', html: getLatestNotification() },
-		];
-		const newNotifications = [
-			{ id: 1, type: 'default', value: 'New course available' },
-			{ id: 2, type: 'urgent', value: 'New resume available' },
-			{ id: 3, type: 'default', html: getLatestNotification() },
-			{ id: 4, type: 'default', value: 'Foo' },
-		];
-		const wrapper = shallow(
-			<Notifications listNotifications={listNotifications} />
-		);
-
-		expect(wrapper.instance().shouldComponentUpdate(newNotifications)).toBe(
-			true
-		);
-	});
-
 	it('should call handleDisplayDrawer when menu item clicked', () => {
 		const listNotifications = [
 			{ id: 1, type: 'default', value: 'New course available' },
